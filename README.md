@@ -12,6 +12,22 @@ lua and love2d, to build a simple game.
 
 You can modify what you want. Chess!
 
+[ Mar 31, 2016]
+Changelog:
+- Now the player start in the middle
+- Restart button fixed
+- adding particle system
+
+Bugs
+- Particle System dont show in collision place
+- The player collides with the map only on one side
+
+Ideias:
+- Adding menu and maybe final credits
+- Graphics Filters
+- Enemy shoot in high level/waves
+
+
 [Mar 28, 2016]
 changelog:
 added restart button
@@ -31,18 +47,3 @@ boss battle
 bugs
 player should start in the middle
 player can move out the screen
-
-[ Mar 31, 2016]
-Changelog:
-- Now the player start in the middle
-- Restart button fixed
-- adding particle system
-
-Bugs
-- Particle System dont show in collision place
-- The player collides with the map only on one side
-
-Ideias:
-- Adding menu and maybe final credits
-- Graphics Filters
-- Enemy shoot in high level/waves
