@@ -1,4 +1,4 @@
-# Love2D_Games
+# Love2D_AsteroidPerOutro
 ==========================================================
 
 Code: Gabriel Modog
