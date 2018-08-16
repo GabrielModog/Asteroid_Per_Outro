@@ -1,7 +1,7 @@
 --- modified 16 august 2018 - 07:04 @GabrielModog
 -- A small update, I wanna try do anothers stuff later
 -- Requires stuff
-requires "particle"
+--requires "particle"
 requires "collider"
 
 -- Rendering settings
