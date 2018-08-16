@@ -1,11 +1,13 @@
-# Love2D_AsteroidPerOutro
-==========================================================
+# Love2D_AsteroidPerOutro #
 
 Code: Gabriel Modog
 Art: Gabrielmodog
 Sound: Gabriel Modog
 
--==========================================================
+# Building/Playing/Installing #
+Get love2d binaries, download this source. Now open the folder
+where you put the files and select all the files that game use,
+so on you compress those files and rename ".zip" to ".love".
 
 The game is a exercise I made for update my analoge about
 lua and love2d, to build a simple game.
