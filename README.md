@@ -1,8 +1,8 @@
 # Love2D_AsteroidPerOutro #
 
-Code: Gabriel Modog
-Art: Gabrielmodog
-Sound: Gabriel Modog
+Code: Gabriel Modog  
+Art: Gabrielmodog  
+Sound: Gabriel Modog  
 
 # Building/Playing/Installing #
 Get love2d binaries, download this source. Now open the folder
