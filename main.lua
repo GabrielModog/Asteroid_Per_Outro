@@ -1,17 +1,21 @@
-requires "lib/particle"
-requires "lib/collider"
+--- modified 16 august 2018 - 07:04 @GabrielModog
+-- A small update, I wanna try do anothers stuff later
+-- Requires stuff
+requires "particle"
+requires "collider"
+
+-- Rendering settings
 love.graphics.setDefaultFilter("nearest", "nearest")
 love.graphics.setNewFont(64)
 
+
+--- Enemy setup
 enemies_controller = { }
 enemies_controller.enemies = { }
 enemies_controller.image = love.graphics.newImage("enemy.png")
 
 
-
-
-
- -- when the bullets hit the enemies
+ -- AABB // Collisions check
 function checkCollisions(enemies, bullets)
 	for i,e in ipairs(enemies) do
 		for ib,b in pairs(bullets) do
@@ -27,7 +31,6 @@ function checkCollisions(enemies, bullets)
 	end
  end 
 
--- the game
 function love.load()
 	game_over = false
 	game_win = false
@@ -58,7 +61,7 @@ function love.load()
 		end
 	end
 	
-	--Launch game and spawn first wave
+	-- Launch game and spawn first wave
 	wave = 0
 	nextWave()
 end
@@ -67,24 +70,25 @@ function restart()
 	game_over = false
 	game_win = false
 	
-	--clear enemies
+	-- clear enemies
 	enemies_controller.enemies = { }
 	
-	--clear player
+	-- clear player
 	player.bullets = {}
 	player.x = 0
 	player.y = 110
 	
-	--reset wave
+	-- reset wave
 	wave = 0
 	nextWave()
 end
 
 -- Starts the next wave and spawn new enemies
 function nextWave()
+	-- initialize wave
 	wave = wave + 1
 	
-	-- Shortcut
+	-- Shortcut to the enemies controller
 	local se = enemies_controller
 	
 	if wave == 1 then
@@ -112,8 +116,10 @@ function nextWave()
 		game_win = true
 	end
 end
--- Control of the spawn enemies
+
+-- Control of the spawning enemies
 function enemies_controller:spawnEnemy(x, y)
+	-- initialize enemy object
 	enemy = {}
 	enemy.x = x
 	enemy.y = y
@@ -131,14 +137,17 @@ function enemies_controller:spawnEnemy(x, y)
 			table.insert(self.bullets, bullet)
 		end
 	end
+	-- making a instance of enemies
 	table.insert(self.enemies, enemy)
 end
 
 function love.draw()
+	-- initial setup to rendering
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.draw(background_image, 0, 0, 0, 5)
 	love.audio.play(background_sound, 0, 0, 0, 5)
 	
+	-- rendering particles
 	particle_systems:draw()
 
 	if game_over then
@@ -154,17 +163,17 @@ function love.draw()
 	if not game_over and not game_win then
 		love.graphics.scale(5)
 		
-		--	O Cara 
+		--  the player rendering
 		love.graphics.setColor(11, 31, 255)
 		love.graphics.draw(player.image, player.x, player.y, 0, 1)
 		
-		-- Us zomi
+		-- the enemies rendering
 		love.graphics.setColor(255, 255, 255)
 		for _,e in pairs(enemies_controller.enemies) do
 			love.graphics.draw(enemies_controller.image, e.x, e.y, 0, 1)
 		end
 		
-		-- As bala da 38 do cara
+		-- the hell bullets
 		love.graphics.setColor(255, 255, 255)
 		for _,b in pairs(player.bullets) do 
 			love.graphics.rectangle("fill", b.x, b.y, 3 , 3)
@@ -173,8 +182,11 @@ function love.draw()
 end
 
 function love.update(dt)
-	map_collider()
+	
+	map_collider(player)
 	particle_systems:update(dt)
+	
+	-- Game Over condition
 	if not game_over then	
 		player.cooldown = player.cooldown - dt
 		if love.keyboard.isDown("right") then
@@ -187,12 +199,12 @@ function love.update(dt)
 			player.fire()
 		end
 		
-		-- Troca de onda/fase
+		-- Swap the waves
 		if #enemies_controller.enemies == 0 then
 			nextWave()
 		end
 		
-		--update enemies
+		-- update enemies objects
 		for _,e in pairs(enemies_controller.enemies) do
 			if e.y >= love.graphics.getHeight()/5 then
 				love.audio.play(player.morte_sound)
@@ -201,14 +213,14 @@ function love.update(dt)
 			e.y = e.y + e.speed * dt
 		end
 		
-		--update bullets
+		-- update bullets objects
 		for i, b in pairs(player.bullets) do
 			if b.y < -10 then
 				table.remove(player.bullets, i)
 			end
 			b.y = b.y - 120 * dt
 		end
-		
+		-- check collision function to check with the bullet touchs the enemies
 		checkCollisions(enemies_controller.enemies, player.bullets)
 	end
 end
@@ -218,3 +230,4 @@ function love.keypressed(key)
 		restart()
 	end
 end
+--- thanks a lot Love2D community!!!! <3 S2
